@@ -1,5 +1,5 @@
 function solution(absolutes, signs) {
-  //for문
+  //🍅 for문
   // let answer = 0;
 
   // for(let i = 0; i < absolutes.length; i++) {
@@ -11,7 +11,7 @@ function solution(absolutes, signs) {
   // }
   // return answer;
 
-  //reduce
+  //🍇 reduce
   return absolutes.reduce(
     (prev, current, index) =>
       signs[index] === true ? prev + current : prev - current,
