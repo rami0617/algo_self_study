@@ -1,34 +1,28 @@
 function solution(n, lost, reserve) {
-  //4번 => 3,5번에게만 빌려줄 수 있음
-  //n =>전체학생수
-  //lost => 도난당한 학생의 번호
-  //reserve => 여벌의 체육복이 있는 학생들의 번호
-  //여벌의체육복을 가지고 온 학생이 체육복을 도난당했을 수 있음
-  //reserve랑 lost의 교집합인 학생은 reserve에서 제외시켜야함.
+  let number = n - lost.length;
 
-  const losedStudent = n - lost.length;
-  let count = 0;
+  lost.sort((a, b) => a - b);
+  reserve.sort((a, b) => a - b);
 
-  reserve.filter((item) => !lost.includes(item));
+  let newLost = lost.filter((item) => !reserve.includes(item));
+  let newReserve = reserve.filter((item) => !lost.includes(item));
 
-  let lostPointer = 0;
-  let reservePointer = 0;
+  number += lost.length - newLost.length;
 
-  while (reservePointer < reserve.length) {
-    if (
-      lost[lostPointer] + 1 === reserve[reservePointer] ||
-      lost[lostPointer] - 1 === reserve[reservePointer]
-    ) {
-      console.log("hello", lost[lostPointer], reservePointer);
-      lostPointer++;
-      reservePointer++;
-      count++;
-      continue;
-    } else {
-      lostPointer++;
-      reservePointer++;
+  newLost.sort((a, b) => a - b);
+
+  newLost.forEach((item) => {
+    if (newReserve.length === 0) {
+      return;
     }
-  }
+    if (newReserve.includes(item - 1)) {
+      number++;
+      newReserve = newReserve.filter((reserveItem) => reserveItem !== item - 1);
+    } else if (newReserve.includes(item + 1)) {
+      number++;
+      newReserve = newReserve.filter((reserveItem) => reserveItem !== item + 1);
+    }
+  });
 
-  return losedStudent + count;
+  return number;
 }
