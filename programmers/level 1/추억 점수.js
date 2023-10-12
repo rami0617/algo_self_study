@@ -6,9 +6,10 @@ function solution(name, yearning, photo) {
     nameObject.push({ name: name[i], yearning: yearning[i] });
   }
 
+  const nameList = nameObject.map((item) => item.name);
+
   for (let i = 0; i < photo.length; i++) {
     let yearning = 0;
-    const nameList = nameObject.map((item) => item.name);
 
     for (let j = 0; j < photo[i].length; j++) {
       if (nameList.includes(photo[i][j])) {
