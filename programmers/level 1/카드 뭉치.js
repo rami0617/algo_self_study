@@ -21,6 +21,4 @@ function solution(cards1, cards2, goal) {
   } else {
     return "No";
   }
-
-  return answer;
 }
