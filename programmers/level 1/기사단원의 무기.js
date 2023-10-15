@@ -36,6 +36,7 @@ function getDivisor(number) {
   }
 
   //첫번째 한 방식
+  //시간초과로 통과되지 않았음.
   //   while (index <= number / 2) {
   //     if (number % index === 0) {
   //       count++;
