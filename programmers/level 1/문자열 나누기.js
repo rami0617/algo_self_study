@@ -1,11 +1,9 @@
 function solution(s) {
-  if (s.length === 1) {
-    return 1;
+  if (s.length <= 1) {
+    return s.length;
   }
 
-  let centerString = s[0];
   let count = 0;
-  // let diffrenceCount = 0;
 
   for (let i = 0; i < s.length; i++) {
     const result = getDiffirentCount(s.slice(i, s.length), s[i]);
@@ -13,6 +11,7 @@ function solution(s) {
 
     count++;
   }
+
   return count;
 }
 
