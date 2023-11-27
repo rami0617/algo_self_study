@@ -24,16 +24,6 @@ function solution(numbers, hand) {
     let leftDifference = Math.abs(numbers[i] - currentLeft);
     let rightDifference = Math.abs(numbers[i] - currentRight);
 
-    if (currentRight === numbers[i]) {
-      result.push("R");
-      continue;
-    }
-
-    if (currentLeft == numbers[i]) {
-      result.push("L");
-      continue;
-    }
-
     if (
       middle.includes(numbers[i]) &&
       !middle.includes(currentLeft) &&
@@ -42,6 +32,7 @@ function solution(numbers, hand) {
       leftDifference =
         Math.abs(left.indexOf(currentLeft) - middle.indexOf(numbers[i])) + 1;
     }
+
     if (
       middle.includes(numbers[i]) &&
       !middle.includes(currentRight) &&
