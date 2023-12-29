@@ -5,70 +5,43 @@ function solution(numbers, hand) {
 
   const result = [];
 
-  let currentRight = -1;
-  let currentLeft = -1;
+  let currentRight = [3, 0];
+  let currentLeft = [3, 2];
 
   for (let i = 0; i < numbers.length; i++) {
     if (right.includes(numbers[i])) {
-      currentRight = numbers[i];
+      currentRight = [right.indexOf(numbers[i]), 2];
       result.push("R");
       continue;
-    }
-
-    if (left.includes(numbers[i])) {
-      currentLeft = numbers[i];
+    } else if (left.includes(numbers[i])) {
+      currentLeft = [left.indexOf(numbers[i]), 0];
       result.push("L");
       continue;
-    }
+    } else {
+      const target = [middle.indexOf(numbers[i]), 1];
+      let leftDifference =
+        Math.abs(target[0] - currentLeft[0]) +
+        Math.abs(target[1] - currentLeft[1]);
 
-    let leftDifference = Math.abs(numbers[i] - currentLeft);
-    let rightDifference = Math.abs(numbers[i] - currentRight);
+      let rightDifference =
+        Math.abs(target[0] - currentRight[0]) +
+        Math.abs(target[1] - currentRight[1]);
 
-    if (
-      middle.includes(numbers[i]) &&
-      !middle.includes(currentLeft) &&
-      currentLeft > -1
-    ) {
-      leftDifference =
-        Math.abs(left.indexOf(currentLeft) - middle.indexOf(numbers[i])) + 1;
-    }
-
-    if (
-      middle.includes(numbers[i]) &&
-      !middle.includes(currentRight) &&
-      currentRight > -1
-    ) {
-      console.log(numbers[i]);
-      rightDifference =
-        Math.abs(right.indexOf(currentRight) - middle.indexOf(numbers[i])) + 1;
-    }
-
-    if (middle.includes(numbers[i]) && middle.includes(currentLeft)) {
-      leftDifference = Math.abs(
-        middle.indexOf(currentLeft) - middle.indexOf(numbers[i])
-      );
-    }
-
-    if (middle.includes(numbers[i]) && middle.includes(currentRight)) {
-      rightDifference = Math.abs(
-        middle.indexOf(currentRight) - middle.indexOf(numbers[i])
-      );
-    }
-
-    if (leftDifference === rightDifference) {
-      if (hand === "right") {
-        result.push("R");
-        currentRight = numbers[i];
-      } else {
+      if (leftDifference < rightDifference) {
         result.push("L");
-        currentLeft = numbers[i];
+        currentLeft = [middle.indexOf(numbers[i]), 1];
+      } else if (leftDifference > rightDifference) {
+        result.push("R");
+        currentRight = [middle.indexOf(numbers[i]), 1];
+      } else if (leftDifference === rightDifference) {
+        if (hand === "right") {
+          result.push("R");
+          currentRight = [middle.indexOf(numbers[i]), 1];
+        } else {
+          result.push("L");
+          currentLeft = [middle.indexOf(numbers[i]), 1];
+        }
       }
-    } else if (leftDifference < rightDifference) {
-      result.push("L");
-      currentLeft = numbers[i];
-    } else if (leftDifference > rightDifference) {
-      result.push("R");
-      currentRight = numbers[i];
     }
   }
 
